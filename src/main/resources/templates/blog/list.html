@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout" layout:decorate="blog/layout/basic">
+<th:block layout:fragment="content">
+    <div class="table-responsive clearfix">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th style="text-align: center">제목</th>
+                <th>등록일</th>
+                <th>조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${not #lists.isEmpty( blogList )}" th:each="row : ${blogList}">
+                <td class="text-left" style="text-align: center">
+                    <a th:href="@{/blog/view.do( idx=${row.idx} )}" th:text="${row.title}"></a>
+                </td>
+                <td th:text="${#temporals.format( row.createAt, 'yyyy-MM-dd' )}"></td>
+                <td th:text="${row.viewCnt}"></td>
+            </tr>
+            <tr th:unless="${not #lists.isEmpty( blogList )}">
+                <td colspan="5">조회된 결과가 없습니다.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="btn_wrap text-right">
+            <a th:href="@{/blog/write.do}" class="btn btn-primary waves-effect waves-light">Write</a>
+        </div>
+        <th:block layout:fragment="paging">
+            <nav th:replace="blog/fragments/common :: pagination"></nav>
+        </th:block>
+
+    </div>
+</th:block>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function movePage(uri, queryString) {
+            location.href = uri + queryString;
+        }
+
+        /*]]>*/
+    </script>
+</th:block>
+</html>
