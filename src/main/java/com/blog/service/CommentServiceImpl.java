@@ -20,6 +20,7 @@ public class CommentServiceImpl implements CommentService{
     public boolean registerComment(CommentDTO params) {
         // TODO Auto-generated method stub
         int queryResult = 0;
+        //해당하는 인덱스가 없으면 댓글 등록
         if( params.getIdx() == null ) {
             queryResult = commentMapper.insertComment(params);
         } else {
@@ -32,9 +33,10 @@ public class CommentServiceImpl implements CommentService{
     public boolean deleteComment(long idx) {
         // TODO Auto-generated method stub
         int queryResult = 0;
-
+        //해당하는 댓글 가져오기
         CommentDTO comment = commentMapper.selectCommentDetail(idx);
 
+        //댓글이 존재하고 삭제되지 않은 상태면 삭제하기
         if( comment != null && "Y".equals(comment.getStatus())) {
             queryResult = commentMapper.deleteComment(idx);
         }
@@ -44,8 +46,10 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public List<CommentDTO> getCommentList() {
         // TODO Auto-generated method stub
+        //댓글 리스트
         List<CommentDTO> commentList = Collections.emptyList();
 
+        //댓글 총 개숙 가져와서 하나라도 있으면 리스트로 가져오기
         int commentTotalCount = commentMapper.selectCommentTotalCount();
         if( commentTotalCount > 0 ) {
             commentList = commentMapper.selectCommentList();

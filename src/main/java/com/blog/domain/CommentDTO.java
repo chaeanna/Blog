@@ -2,10 +2,10 @@ package com.blog.domain;
 
 public class CommentDTO {
 
-    private Long idx;
-    private String content;
+    private Long idx; //댓글 인덱스
+    private String content; //댓글 내용
     private int password;
-    private String status;
+    private String status; //댓글 상태
 
 
     public Long getIdx() {
