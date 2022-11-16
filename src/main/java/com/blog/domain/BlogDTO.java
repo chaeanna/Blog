@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @Setter
 public class BlogDTO extends CommonDTO{
 
-    private Long idx;
-    private String title;
-    private String content;
-    private String image;
-    private int viewCnt;
+    private Long idx; //블로그 인덱스
+    private String title; //블로그 제목
+    private String content; //블로그 내용
+    private String image; //블로그 이미지
+    private int viewCnt; //블로그 조회수
 
     public Long getIdx() {
         return idx;

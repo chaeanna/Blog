@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraqg.net.nz/thymeleaf/layout" layout:decorate="blog/layout/basic">
+<th:block layout:fragment="content">
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading" th:object="${about}">
+                        <h1 th:text="*{title}"></h1>
+                        <span class="meta">
+                                Posted by ANNA, <p style="text-align: right" th:text="*{#temporals.format( createAt, 'yyyy-MM-dd' )}"></p>
+                            </span>
+                    </div>
+                    <div th:object="${about}">
+                        <p style="text-align: center" th:text="*{content}" />
+                    </div>
+                    <div class="btn_wrap text-center" th:object="${params}">
+                        <a th:href="@{/blog/aboutlist.do}" class="btn btn-default waves-effect waves-light">뒤로가기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</th:block>
+</html>

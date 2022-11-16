@@ -2,7 +2,6 @@ package com.blog.controller;
 
 import com.blog.constant.Method;
 import com.blog.domain.BlogDTO;
-import com.blog.paging.Criteria;
 import com.blog.service.BlogService;
 import com.blog.util.UiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class BlogController extends UiUtils {
@@ -23,6 +21,7 @@ public class BlogController extends UiUtils {
     @Autowired
     private BlogService blogService;
 
+    //블로그 작성화면으로 이동
     @GetMapping(value="/blog/write.do")
     public String openBlogWrite(@RequestParam(value = "idx", required = false) Long idx, Model model) {
         if(idx == null) {
@@ -38,9 +37,9 @@ public class BlogController extends UiUtils {
         return "blog/write";
     }
 
+    //블로그 작성하기
     @PostMapping(value = "/blog/register.do")
     public String registerBlog(@ModelAttribute("params") final BlogDTO params, Model model) {
-//        Map<String, Object> pagingParams = getPagingParams(params);
         try {
             boolean isRegistered = blogService.registerBlog(params);
             if (isRegistered == false) {
@@ -59,6 +58,7 @@ public class BlogController extends UiUtils {
 
     }
 
+    //블로그 리스트 조회
     @GetMapping(value = "/blog/list.do")
     public String openBlogList(@ModelAttribute("params") BlogDTO params, Model model) {
         List<BlogDTO> blogList = blogService.getBlogList(params);
@@ -67,17 +67,16 @@ public class BlogController extends UiUtils {
         return "blog/list";
     }
 
+    //블로그 포스트 조회
     @GetMapping(value = "/blog/view.do")
-    public String openBlogDetail(/*@ModelAttribute("params") BlogDTO params,*/ @RequestParam(value = "idx", required = false) Long idx, Model model){
+    public String openBlogDetail(@RequestParam(value = "idx", required = false) Long idx, Model model){
         if (idx == null) {
-//            return showMessageWithRedirect("올바르지 않은 접근입니다.", "/board/list.do", Method.GET, null, model);
             return "redirect:/blog/list.do";
         }
 
         BlogDTO blog = blogService.getBlogDetail(idx);
 
         if (blog == null || "N".equals(blog.getStatus())) {
-//            return showMessageWithRedirect("없는 게시글이거나 이미 삭제된 게시글입니다.", "/board/list.do", Method.GET, null, model);
             return "redirect:/blog/list.do";
         }
         model.addAttribute("blog", blog);
@@ -85,13 +84,13 @@ public class BlogController extends UiUtils {
         return "blog/view";
     }
 
+    //블로그 삭제하기
     @PostMapping(value = "/blog/delete.do")
-    public String deleteBoard(/*@ModelAttribute("params") BoardDTO params, */@RequestParam(value = "idx", required = false) Long idx, Model model) {
+    public String deleteBoard(@RequestParam(value = "idx", required = false) Long idx, Model model) {
         if (idx == null) {
             return showMessageWithRedirect("올바르지 않은 접근입니다.", "/blog/list.do", Method.GET, null, model);
         }
 
-//        Map<String, Object> pagingParams = getPagingParams(params);
         try {
             boolean isDeleted = blogService.deleteBlog(idx);
             if (isDeleted == false) {

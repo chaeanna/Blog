@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapper.AboutMapper">
+    <sql id="aboutColumns">
+        idx
+        , title
+		, content
+        , status
+        , createAt
+        , updateAt
+    </sql>
+
+
+    <select id="selectAboutDetail" parameterType="long" resultType="com.blog.domain.AboutDTO">
+        SELECT
+        <include refid="aboutColumns"/>
+        FROM
+        about
+        WHERE
+        status = 'Y'
+        AND
+        idx = #{idx}
+    </select>
+
+
+    <select id="selectAboutList" parameterType="AboutDTO" resultType="com.blog.domain.AboutDTO">
+        SELECT
+        <include refid="aboutColumns"/>
+        FROM
+        about
+        WHERE
+        status = 'Y'
+        ORDER BY
+        idx DESC,
+        createAt DESC
+    </select>
+    <select id="selectAboutTotalCount" parameterType="AboutDTO" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            about
+        WHERE
+            status = 'Y'
+    </select>
+
+
+</mapper>

@@ -82,18 +82,18 @@ public class MappersTests {
         }
     }
 
-    @Test
-    public void testSelectList() {
-        List<BlogDTO> blogList = blogMapper.selectBlogList();
-        if(CollectionUtils.isEmpty(blogList) == false) {
-            for(BlogDTO blog : blogList) {
-                System.out.println("======================================");
-                System.out.println(blog.getTitle());
-                System.out.println(blog.getContent());
-                System.out.println(blog.getImage());
-                System.out.println("======================================");
-
-            }
-        }
-    }
+//    @Test
+//    public void testSelectList() {
+//        List<BlogDTO> blogList = blogMapper.selectBlogList();
+//        if(CollectionUtils.isEmpty(blogList) == false) {
+//            for(BlogDTO blog : blogList) {
+//                System.out.println("======================================");
+//                System.out.println(blog.getTitle());
+//                System.out.println(blog.getContent());
+//                System.out.println(blog.getImage());
+//                System.out.println("======================================");
+//
+//            }
+//        }
+//    }
 }
